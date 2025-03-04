@@ -36,10 +36,10 @@ jobs:
     - name: Build Docker image
       run: |
         echo "Building the Docker image..."
-        docker build -t ${{ secrets.DOCKER_HUB_REPOSITORY }}:${{ env.version }} .
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/docker-training_2:${{ env.version }} .
         echo "Build completed on $(date)"
         # Tags the built image for ECR repository
-        docker tag ${{ secrets.DOCKER_HUB_REPOSITORY }}:${{ env.version }} ${{ secrets.DOCKER_HUB_REGISTRY }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:${{ env.version }}
+        # docker tag ${{ secrets.DOCKER_HUB_USERNAME }}:${{ env.version }} ${{ secrets.DOCKER_HUB_REGISTRY }}/${{ secrets.DOCKER_HUB_USERNAME }}:${{ env.version }}
         echo "Build completed on $(date)"  
       # Prints a timestamp when the build is completed
 
@@ -47,5 +47,5 @@ jobs:
       run: |
         echo "Pushing the Docker image..."
         docker images  # Optionally list images to confirm the image exists
-        docker push ${{ secrets.DOCKER_HUB_REGISTRY }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:${{ env.version }}
+        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/docker-training_2:${{ env.version }}
         echo "Image pushed to Docker Hub with tag: ${{ env.version }}"
